@@ -17,7 +17,7 @@ const app = express();
 
 
 //Custom modules
-const config = require('./config/config');
+//const config = require('./config/config');
 const { isLogin, isAdmin } = require('./helper/isAuthenticated')
 const LocalStrategy = require('./config/passport-local');
 const mainRoute = require('./routes/main');
@@ -87,10 +87,10 @@ app.use('/admin', isAdmin, adminRoute);
 /**
  * SERVER
  */
-app.listen(config.port, err => {
+app.listen(process.env.PORT || 4000, err => {
     if (err) {
         console.log('we can not conneted to the server');
     } else {
-        console.log(`connected to the server at port ${config.port}`)
+        console.log(`connected to the server s`)
     }
 })
