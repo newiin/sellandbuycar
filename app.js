@@ -87,7 +87,8 @@ app.use('/admin', isAdmin, adminRoute);
 /**
  * SERVER
  */
-app.listen(process.env.PORT || 4000, err => {
+const port = process.env.PORT || 8000;
+app.listen(port, err => {
     if (err) {
         console.log('we can not conneted to the server');
     } else {
