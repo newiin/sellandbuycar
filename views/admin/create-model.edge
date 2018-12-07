@@ -1,0 +1,73 @@
+@layout('layout/adminLayout')
+
+@yield('content')
+  	
+	
+<!-- myads-page -->
+<section id="main" class="clearfix myads-page">
+    <div class="container">
+
+       
+
+        <div class="ad-profile section">	
+                <div class="user-profile">
+             
+                    <div class="user">
+                        <h2>Hello, <a href="#">Jhon Doe</a></h2>
+                       
+                    </div>
+
+                    <div class="favorites-user">
+                        <div class="my-ads">
+                            <a href="my-ads.html">23<small>All Ads</small></a>
+                        </div>
+                        <div class="favorites">
+                            <a href="#">18<small>Favorites</small></a>
+                        </div>
+                    </div>								
+                </div><!-- user-profile -->
+                        
+                @include('partials/adminNav')
+        
+        </div><!-- ad-profile -->			
+        
+        <div class="ads-info">
+            <div class="row">
+             
+                <div class="col-sm-12">
+                    <div class="my-ads section">
+                        <h2>My ads</h2>
+                        <div class="user-account">
+                                <h2>Add New Model</h2>
+                                <!-- form -->
+                                @each( error in errors)
+										  
+                                               <div class="alert alert-danger">
+                                                  {{error.msg }}
+                                               </div>
+                                        
+                                           
+                                 @endeach
+                                <form action="/admin/create-model" method="POST">
+                                    <div class="form-group">
+                                        <input type="text" name="model" class="form-control" placeholder="Add new Model " >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Brand</label>
+                                        <select class="form-control" name="make">
+                                            @each(make in makes)
+                                               <option value="{{make._id}}">{{make.makeName}}</option>
+                                            @endeach
+                                           
+                                           
+                                        </select>
+                                    </div>	
+                                    
+                                    <button type="submit" href="#" class="btn">Add New Model</button>
+                         </form><!-- form -->
+                    </div>
+                    
+                </div>
+
+@endyield	
+	

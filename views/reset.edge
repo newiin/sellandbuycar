@@ -1,0 +1,46 @@
+
+@layout('layout/layout')
+
+@yield('content')
+
+	<!-- signup-page -->
+	<section id="main" class="clearfix user-page">
+		<div class="container">
+			<div class="row text-center">
+				<!-- user-login -->			
+				<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+					<div class="user-account">
+						<h2>Forgot your password</h2>
+					        	@each( error in errors)
+								<div class="alert alert-danger">
+									{{error.msg }}
+								</div>
+								@endeach
+
+								@if(errorMessage.length>0)
+
+								<div class="alert alert-danger">
+										@each(msg in errorMessage)
+										  {{msg}}
+										@endeach
+								</div>
+							
+								@endif
+	
+						<form action="/reset" method="POST">
+						
+							<div class="form-group">
+								<input type="email" name="email" class="form-control" placeholder="Email">
+							</div>
+							<button type="submit"  class="btn">Send</button>	
+						</form>
+						<!-- checkbox -->
+										
+					</div>
+				</div><!-- user-login -->			
+			</div><!-- row -->	
+		</div><!-- container -->
+	</section><!-- signup-page -->
+
+@endyield
+	

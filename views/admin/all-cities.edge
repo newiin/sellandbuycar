@@ -1,0 +1,68 @@
+@layout('layout/adminLayout')
+
+@yield('content')
+  	
+	
+<!-- myads-page -->
+<section id="main" class="clearfix myads-page">
+    <div class="container">
+
+       
+
+        <div class="ad-profile section">	
+                <div class="user-profile">
+             
+                    <div class="user">
+                        <h2>Hello, <a href="#">Jhon Doe</a></h2>
+                       
+                    </div>
+
+                    <div class="favorites-user">
+                        <div class="my-ads">
+                            <a href="my-ads.html">23<small>All Ads</small></a>
+                        </div>
+                        <div class="favorites">
+                            <a href="#">18<small>Favorites</small></a>
+                        </div>
+                    </div>								
+                </div><!-- user-profile -->
+                        
+                @include('partials/adminNav')
+        
+        </div><!-- ad-profile -->			
+        
+        <div class="ads-info">
+            <div class="row">
+                
+                <div class="col-sm-12">
+                    <div class="my-ads section">
+                        <h2>All Cities</h2>
+                        <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">City Name</th>
+                                   
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                @each(city in cities)
+                                    <tr>
+                                        <th scope="row">{{city._id}}</th>
+                                        <td>{{city.cityName}}</td>
+                                        <td><a href="/admin/city/{{city._id}}/edit"><button type="button" class="btn btn-info">Edit</button></a></td>
+                                        <td><a href="/admin/city/{{city._id}}/delete"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                                      </tr>
+                                @endeach
+                                  
+                                </tbody>
+                              </table>
+                    
+                     </div>
+                </div>
+                
+            </div>
+
+@endyield	
+	

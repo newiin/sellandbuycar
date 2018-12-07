@@ -1,0 +1,92 @@
+@layout('layout/layout')
+
+@yield('content')
+	<!-- main -->
+	<section id="main" class="clearfix ad-details-page">
+            <div class="container">
+            
+
+                <div class="adpost-details">
+                    <div class="row">	
+                        <div class="col-md-12">
+                        <form action="/user/edit-ad/{{vehicle._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+                                <fieldset>
+                                    <div class="section postdetails">
+                                        <h4>Sell an item or service <span class="pull-right">* Mandatory Fields</span></h4>
+                                        
+                                        @each( error in errors)
+										  
+                                        <div class="alert alert-danger">
+                                           {{error.msg }}
+                                        </div>
+                                 
+                                    
+                                       @endeach
+                                        <div class="row form-group add-title">
+                                            <label class="col-sm-3 label-title">Title<span class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                            <input type="text" class="form-control" value="{{vehicle.title}}" name="title" placeholder="Title">
+                                            </div>
+                                        </div>
+                                       	
+                                          
+                                        <div class="row form-group brand-name">
+                                            <label class="col-sm-3 label-title">Year<span class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="year"value="{{vehicle.year}}" class="form-control" placeholder="2017">
+                                            </div>
+                                        </div>
+                                       
+                                        
+                                        <div class="row form-group model-name">
+                                            <label class="col-sm-3 label-title">Fuel<span class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" value="{{vehicle.fuel}}" name="fuel" placeholder="Petrol ">	
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row form-group model-name">
+                                                <label class="col-sm-3 label-title">Color<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" value="{{vehicle.color}}" name="color" placeholder="Color red yellow">	
+                                              </div>
+                                        </div>
+                                         
+                                        
+                                          <input type="hidden" class="form-control" name="user" value="{{user._id}}">	
+                                             
+                                        
+                                        <div class="row form-group model-name">
+                                                <label class="col-sm-3 label-title">speed<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" value="{{vehicle.speed}}" name="speed" placeholder="speed">	
+                                                </div>
+                                        </div>
+                                        <div class="row form-group model-name">
+                                                <label class="col-sm-3 label-title">Price<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" value="{{vehicle.price}}" name="price" placeholder="Price">	
+                                                </div>
+                                        </div>
+                                       								
+                                    </div><!-- section -->
+                                    
+                                   
+                                    
+                                    <div class="checkbox section agreement">
+                                       
+                                        <button type="submit" class="btn btn-primary">Edit Your Ad</button>
+                                    </div><!-- section -->
+                                    
+                                </fieldset>
+                            </form><!-- form -->	
+                        </div>
+                    
+    
+                       
+                    </div><!-- photos-ad -->				
+                </div>	
+            </div><!-- container -->
+        </section><!-- main -->
+        
+@endyield

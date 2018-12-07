@@ -1,0 +1,53 @@
+{
+    "name": "sellandbuycar",
+    "version": "1.0.0",
+    "description": "sell and buy car application",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "car",
+        "sell",
+        "buy"
+    ],
+    "dependencies": {
+        "algoliasearch": "^3.30.0",
+        "bcrypt": "^3.0.2",
+        "body-parser": "^1.18.3",
+        "connect-flash": "^0.1.1",
+        "cookie-parser": "^1.4.3",
+        "csurf": "^1.9.0",
+        "dotenv-extended": "^2.0.2",
+        "express": "^4.16.3",
+        "express-edge": "^1.0.0",
+        "express-fileupload": "^0.4.0",
+        "express-session": "^1.15.6",
+        "express-validator": "^5.2.0",
+        "fs-extra": "^7.0.1",
+        "lodash": "^4.17.10",
+        "method-override": "^2.3.10",
+        "moment": "^2.22.2",
+        "mongoolia": "^1.0.3",
+        "mongoose": "^5.1.5",
+        "mongoose-algolia": "^1.7.1",
+        "mongoose-deep-populate": "^3.1.1",
+        "mongoose-paginate": "^5.0.3",
+        "mongoose-paginate-v2": "^1.0.13",
+        "mongoose-timestamp": "^0.6.0",
+        "multer": "^1.3.1",
+        "nodemailer": "^4.7.0",
+        "nodemailer-sendgrid-transport": "^0.2.0",
+        "nodemon": "^1.17.5",
+        "passport": "^0.4.0",
+        "passport-facebook": "^2.1.1",
+        "passport-google-oauth20": "^1.0.0",
+        "passport-local": "^1.0.0",
+        "path": "^0.12.7",
+        "query-string": "^6.2.0",
+        "slugify": "^1.3.3",
+        "validator": "^10.7.0"
+    },
+    "author": "Carlos Barbier",
+    "license": "ISC"
+}

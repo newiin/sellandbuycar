@@ -1,0 +1,109 @@
+@layout('layout/adminLayout')
+
+@yield('content')
+  	
+	
+<!-- myads-page -->
+<section id="main" class="clearfix myads-page">
+    <div class="container">
+
+       
+
+        <div class="ad-profile section">	
+                <div class="user-profile">
+             
+                    <div class="user">
+                        <h2>Hello, <a href="#">{{user.name}}</a></h2>
+                       
+                    </div>
+
+                    <div class="favorites-user">
+                        
+                        <div class="my-ads">
+                                <a href="my-ads.html">{{vehicleTotalApprouved}}<small>All Ads Approuved</small></a>
+                        </div>
+                        <div class="my-ads">
+                                <a href="my-ads.html">{{vehicleTotalInapprouved}}<small>All Ads Inapprouved</small></a>
+                        </div>
+                        <div class="my-ads">
+                                <a href="my-ads.html">{{vehicleTotal}}<small>All Ads</small></a>
+                        </div>
+                    </div>								
+                </div><!-- user-profile -->
+                        
+                @include('partials/adminNav')
+        
+        </div><!-- ad-profile -->
+       
+			@if(successMessage.length>0)
+
+            <div class="alert alert-success">
+                    @each(msg in successMessage)
+                        {{msg}}
+                    @endeach
+            </div>
+                    
+         @endif	
+       
+        <div class="ads-info">
+            <div class="row">
+             
+                <div class="col-sm-12">
+                    <div class="my-ads section">
+                        
+                       
+                        <div class="ads-info">
+                            <div class="row">
+                                
+                                <div class="col-sm-12">
+                                    <div class="my-ads section">
+                                        <h2>All Vehicles</h2>
+                                        <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Id</th>
+                                                    <th scope="col"> Title</th>
+                                                    <th scope="col"> Make</th>
+                                                    <th scope="col"> Model</th>
+                                                    <th scope="col">Published</th>
+                                                    <th scope="col">Owner</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                @each(vehicle in vehicles)
+                                                    <tr>
+                                                        <td>{{vehicle._id}}</td>
+                                                        <td>{{vehicle.title}}</td>
+                                                        <td>{{vehicle.model.make.makeName}}</td>
+                                                        <td>{{vehicle.model.name}}</td>
+                                                        <td>{{moment(vehicle.createdAt, "YYYYMMDD").fromNow()}}</td>
+                                                        <td>{{vehicle.user.name}}</td>
+                                                        <td><a href="/admin/ad/{{vehicle._id}}/approuved">
+                                                            @if(vehicle.isApprouved)
+                                                            <button type="button" class="btn btn-info">
+                                                            Approuved
+                                                            </button></a></td>    
+                                                            @else
+                                                            <button type="button" class="btn btn-warning">
+                                                                    Inapprouved
+                                                            </button></a></td>
+                                                            @endif
+                                                            
+                                                        <td><a href="/admin/ad/{{vehicle._id}}/delete"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                                                      </tr>
+                                                @endeach
+                                                  
+                                                </tbody>
+                                              </table>
+                                    
+                                     </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div><!-- my-ads -->
+
+@endyield	
+	

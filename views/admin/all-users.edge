@@ -1,0 +1,71 @@
+@layout('layout/adminLayout')
+
+@yield('content')
+  	
+	
+<!-- myads-page -->
+<section id="main" class="clearfix myads-page">
+    <div class="container">
+
+       
+
+        <div class="ad-profile section">	
+                <div class="user-profile">
+             
+                    <div class="user">
+                        <h2>Hello, <a href="#">{{user.name}}</a></h2>
+                       
+                    </div>
+
+                    <div class="favorites-user">
+                        <div class="my-ads">
+                            <a href="my-ads.html">{{userTotal}}<small>All Users</small></a>
+                        </div>
+                       
+                    </div>								
+                </div><!-- user-profile -->
+                        
+                @include('partials/adminNav')
+        
+        </div><!-- ad-profile -->			
+        
+        <div class="ads-info">
+            <div class="row">
+                
+                <div class="col-sm-12">
+                    <div class="my-ads section">
+                        <h2>All Users</h2>
+                        <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">User Id</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">User Email</th>
+                                    <th scope="col">User Phone</th>
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                @each(user in users)
+                                    <tr>
+                                        <td>{{user._id}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td>{{user.phone}}</td>
+                                        
+                                        <td><a href="/admin/user/{{user._id}}/delete"><button type="button" class="btn btn-danger">Delete This User</button></a></td>
+                                        <td><a href="/admin/user/{{user._id}}/delete"><button type="button" class="btn btn-info">Set Rule</button></a></td>
+
+                                      </tr>
+                                @endeach
+                            
+                                </tbody>
+                              </table>
+                    
+                     </div>
+                </div>
+                
+            </div>
+
+@endyield	
+	

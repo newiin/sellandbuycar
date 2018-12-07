@@ -1,0 +1,62 @@
+@layout('layout/layout')
+
+@yield('content')
+<section id="main" class="clearfix details-page">
+    <div class="container">
+       @each(vehicle in vehicle)
+         
+      
+        <div class="section slider">					
+            <div class="row">
+                <!-- carousel -->
+                <div class="col-md-12">
+                   
+                    <div class="item active">
+                        
+                            
+                    <img src="/images/{{vehicle.image}}"  class="img-responsive">
+                        
+                    </div><!-- item -->
+
+                    </div>
+                </div><!-- Controls -->	
+
+                
+                <div class="col-md-5">
+                    <div class="slider-text">
+                        <h2>${{vehicle.price}}</h2>
+                        <h3 class="title">{{vehicle.title}}</h3>
+                        <span> Ad ID:{{vehicle._id}}</span>
+                        <!-- short-info -->
+                        <div class="short-info">
+                            <h4>Ad  Info</h4>
+                            <p><strong>Offer By: </strong><a href="#">{{vehicle.user.name}}</a> </p>
+                            <p><strong>Date Published: </strong> <i class="fa fa-clock-o"></i><a href="#"> {{moment(vehicle.createdAt, "YYYYMMDD").fromNow()}}</a></span> </p>
+                            <p><strong>Condition: </strong><a href="#">{{vehicle.condition.condition}}</a> </p>
+                            <p><strong>Brand: </strong><a href="#">{{vehicle.model.make.makeName}}</a> </p>
+                           
+                            <p><strong>Model: </strong><a href="#">{{vehicle.model.name}}</a></p>
+                        </div><!-- short-info -->
+                        
+                        <!-- contact-with -->
+                        <div class="contact-with">
+                            <h4>Phone Number </h4>
+                            <span class="btn btn-red show-number">
+                                <i class="fa fa-phone-square"></i>
+                                
+                                <span class="">{{vehicle.user.phone}}</span>
+                            </span>
+                           
+                        </div><!-- contact-with -->
+                        
+                       						
+                    </div>
+                </div><!-- slider-text -->				
+            </div>				
+        </div><!-- slider -->
+
+        @endeach
+        
+    
+</section><!-- main -->
+@endyield	

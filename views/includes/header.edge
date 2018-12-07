@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Theme Region">
+   	<meta name="description" content="">
+
+    <title>SellAndBuyCar| World's Largest Classifieds Portal</title>
+
+   <!-- CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/icofont.css">   
+    <link rel="stylesheet" href="/css/main.css">  	
+    <link rel="stylesheet" href="/css/responsive.css">
+	
+	<!-- font -->
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700' rel='stylesheet' type='text/css'>
+
+	
+
+  </head>
+  <body>
+	<!-- header -->
+	<header id="header" class="clearfix">
+		<!-- navbar -->
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<!-- navbar-header -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/"><img id="logo" src="/images/sellbuy.png"></a>
+				</div>
+				<!-- /navbar-header -->
+				@if(user && user.rule=="user")
+				<div class="navbar-left">
+						<div class="collapse navbar-collapse" id="navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li><a href="/all-ads/?page=1">all ads</a></li>
+								<li><a href="/about">ABOUT US</a></li>
+								<li><a href="/contact">Contact US</a></li>
+								
+							</ul>
+						</div>
+					</div>
+					
+					<!-- nav-right -->
+					<div class="nav-right">
+					
+	
+						<div class="dropdown language-dropdown">
+														 
+						<a data-toggle="dropdown" href="#"><span class="change-text">Welcome {{user.name}}</span> <i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu language-change">
+									<li><a href="/user/post-ad">Post Ad</a></li>
+									<li><a href="/user/my-ads">My Ads</a></li>
+									<li><a href="/user/profile">Profile</a></li>
+									
+								</ul>								
+						</div>
+						<ul class="sign-in">
+								
+							<li><a href="/logout">Logout</a></li>
+						</ul><!-- sign-in -->					
+						
+					</div>
+				
+				  
+				@elseif(user && user.rule=="admin")
+				<div class="navbar-left">
+					<div class="collapse navbar-collapse" id="navbar-collapse">
+						<ul class="nav navbar-nav">
+								<li><a href="/all-ads/?page=1">all ads</a></li>
+								<li><a href="/about">ABOUT US</a></li>
+								<li><a href="/contact">Contact US</a></li>
+							
+						</ul>
+					</div>
+				</div>
+				
+				<!-- nav-right -->
+				<div class="nav-right">
+				
+
+					<div class="dropdown language-dropdown">
+													 
+					<a data-toggle="dropdown" href="#"><span class="change-text">Administrator {{user.name}}</span> <i class="fa fa-angle-down"></i></a>
+							<ul class="dropdown-menu language-change">
+								<li><a href="/admin/my">Dasboard</a></li>
+								<li><a href="/admin/create-city">Create city</a></li>
+								<li><a href="/admin/all-cities">All cities</a></li>
+								
+							</ul>								
+					</div>
+					<ul class="sign-in">
+							
+						<li><a href="/logout">Logout</a></li>
+					</ul><!-- sign-in -->					
+					
+				</div>
+				@else
+				  
+				
+				<div class="navbar-left">
+						<div class="collapse navbar-collapse" id="navbar-collapse">
+							<ul class="nav navbar-nav">
+								
+								
+								<li><a href="/all-ads/?page=1">all ads</a></li>
+								<li><a href="/about">ABOUT US</a></li>
+								<li><a href="/contact">Contact US</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<!-- nav-right -->
+					<div class="nav-right">
+					
+			
+						<!-- sign-in -->					
+						<ul class="sign-in">
+							<li><i class="fa fa-user"></i></li>
+							<li><a href="/login"> Sign In </a></li>
+							<li><a href="/register">Register</a></li>
+						</ul><!-- sign-in -->					
+						<a href="/user/post-ad" class="btn">Post Your Ad</a>
+						
+					</div>
+				@endif
+				
+				<!-- nav-right -->
+			</div><!-- container -->
+		</nav><!-- navbar -->
+	</header><!-- header -->
