@@ -458,7 +458,7 @@ Router.get('/:makeSlug', (req, res) => {
     })
     //   search
 
-// Article search
+//Article search
 Router.get('/search', (req, res, next) => {
     if (req.query.q) {
         console.log(req.query.q);
