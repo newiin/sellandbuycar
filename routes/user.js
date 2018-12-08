@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const path = require('path')
-const bcrypt = require('bcrypt');
+    //const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator')

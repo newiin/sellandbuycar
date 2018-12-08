@@ -12,5 +12,6 @@ autocomplete('#aa-search-input', { hint: false }, {
             return '<a href="/details/' + suggestion.objectID + '"><span>' +
                 suggestion._highlightResult.title.value + '</span><a/>';
         }
+
     }
 });
