@@ -27,19 +27,19 @@ Router.get('/', (req, res) => {
 
     Vehicle.find({})
 
-    .populate('condition')
-        .populate('transmission')
+    .populate({
+            path: 'user',
+            populate: {
+                path: 'cityName'
+            }
+        })
+        .populate('condition')
+        .populate('tranmission')
         .populate({
             path: 'model',
             populate: {
                 path: 'make'
             }
-            .populate({
-                path: 'user',
-                populate: {
-                    path: 'cityName'
-                }
-            })
         }).sort({
             'date': -1
         })
