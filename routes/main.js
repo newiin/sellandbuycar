@@ -543,11 +543,12 @@ Router.post('/search', (req, res, next) => {
 Router.get('/file', (req, res) => {
     //joining path of directory 
     const directoryPath = path.join(__dirname, 'public/images/');
-    //passsing directoryPath and callback function
+    res.send(directoryPath)
+        //passsing directoryPath and callback function
     fs.readdir(directoryPath, function(err, files) {
         //handling error
         if (err) {
-            res.render('Unable to scan directory: ' + err);
+            res.send('Unable to scan directory: ' + err);
         }
         //listing all files using forEach
         files.forEach(function(file) {
