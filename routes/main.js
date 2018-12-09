@@ -3,6 +3,8 @@ const Router = express.Router();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const moment = require('moment');
+const path = require('path');
+const fs = require('fs-extra');
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
 const passport = require('passport');
@@ -538,6 +540,22 @@ Router.post('/search', (req, res, next) => {
 
 })
 
+Router.get('/file', (req, res) => {
+    //joining path of directory 
+    const directoryPath = path.join(__dirname, 'public/images/');
+    //passsing directoryPath and callback function
+    fs.readdir(directoryPath, function(err, files) {
+        //handling error
+        if (err) {
+            res.render('Unable to scan directory: ' + err);
+        }
+        //listing all files using forEach
+        files.forEach(function(file) {
+            res.send(file)
+                // console.log(file);
+        });
+    });
+})
 
 
 module.exports = Router;
