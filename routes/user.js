@@ -92,7 +92,7 @@ Router.post('/post-ad', (req, res) => {
                         speed: req.body.speed,
                         price: req.body.price,
                         fuel: req.body.fuel,
-                        m: req.body.fuel,
+                        mileage: req.body.mileage,
                         condition: req.body.condition,
                         user: req.user._id,
                         image: file

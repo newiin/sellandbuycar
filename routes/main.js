@@ -24,7 +24,12 @@ const index = client.initIndex('Vehiclechema');
 Router.get('/', (req, res) => {
 
     Vehicle.find({})
-        .populate('user')
+        .populate({
+            path: 'user',
+            populate: {
+                path: 'city'
+            }
+        })
         .populate('condition')
         .populate('tranmission')
         .populate({

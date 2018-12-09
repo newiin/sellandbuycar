@@ -35,7 +35,7 @@ const UserSchema = new Schema({
         required: true,
         default: "user"
     },
-    cityName: {
+    city: {
         type: Schema.Types.ObjectId,
         ref: 'cities'
     }
