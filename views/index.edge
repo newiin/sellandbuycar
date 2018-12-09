@@ -35,7 +35,7 @@
            <div class="ad-item row">
 	      <div class="item-image-box  col-sm-12 col-md-5">
 		<div class="item-image">
-		<a href="/details/{{vehicle._id}}"><img src="images/{{vehicle.image}}" alt="Image" class="img-responsive"></a>
+		<a href="/details/{{vehicle._id}}"><img src="/images/{{vehicle.image}}" alt="Image" class="img-responsive"></a>
 		</div><!-- item-image -->
 		<div class="ad-info">
 			<div class="item-cat">
@@ -64,7 +64,7 @@
 		<div class="ad-meta">
 			<div class="meta-content">
 				<span class="dated"><a href="#"><i class="fa fa-clock-o"></i> {{moment(vehicle.createdAt, "YYYYMMDD").fromNow()}}</a></span>
-			    <a href="#" class="tag"><i class="fa fa-map-marker"></i> {{vehicle.user.cityName.cityName}}</a>
+			    <a href="#" class="tag"><i class="fa fa-map-marker"></i> {{vehicle.user.cityName}}</a>
 			</div>									
 			
 		</div><!-- ad-meta -->																		
