@@ -217,7 +217,7 @@ Router.get('/delete-ad/:ad', (req, res) => {
     Vehicle.findOneAndDelete({
         _id: req.params.ad
     }).then(vehicle => {
-        fs.unlink(path.join(__dirname, '../public/images/' + vehicle.image), function(err) {
+        fs.unlink(path.join(__dirname + '/public/images/' + vehicle.image), function(err) {
             if (err) {
                 console.error(err);
             }
