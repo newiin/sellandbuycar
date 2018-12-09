@@ -42,7 +42,8 @@ Router.get('/', (req, res) => {
                     res.render('index', {
                         vehicles: vehicles,
                         makes: makes,
-                        vehicleTotal: vehicleTotal
+                        vehicleTotal: vehicleTotal,
+                        moment: moment
                     });
                 }).catch((err) => {
                     console.log(err);
