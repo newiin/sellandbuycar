@@ -77,7 +77,7 @@ Router.post('/post-ad', (req, res) => {
         let file = req.files.file.name;
         if (req.files.file) {
             let filename = req.files.file
-            filename.mv('./public/images/' + filename.name, function(err) {
+            filename.mv('./public/images' + filename.name, function(err) {
                 if (err) {
                     return res.status(500).send(err);
                 } else {
