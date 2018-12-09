@@ -35,14 +35,15 @@
            <div class="ad-item row">
 	      <div class="item-image-box  col-sm-12 col-md-5">
 		<div class="item-image">
-		<a href="/details/{{vehicle._id}}"><img src="/iuploads/{{vehicle.image}}" alt="Image" class="img-responsive"></a>
+		<a href="/details/{{vehicle._id}}"><img src="./images/{{vehicle.image}}" alt="Image" class="img-responsive"></a>
 		</div><!-- item-image -->
 		<div class="ad-info">
 			<div class="item-cat">
 				<span><a href="#">{{vehicle.model.make.makeName}}</a></span>
 			</div>								
 			<h4 class="item-title"><a href="#">{{vehicle.title}}</a></h4>
-			<h3 class="item-price">{{vehicle.price}}</h3>	
+			<h3 class="item-price">{{vehicle.price}}</h3>
+			<h3 class="item-price">{{vehicle.image}}</h3>		
 		</div>						
 	</div>	
 	<div class="cars-ads-box col-sm-12 col-md-7">
