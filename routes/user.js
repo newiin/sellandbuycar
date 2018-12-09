@@ -77,10 +77,12 @@ Router.post('/post-ad', (req, res) => {
         let file = req.files.file.name;
         if (req.files.file) {
             let filename = req.files.file
-            filename.mv(__dirname + '/public/images/' + filename.name, function(err) {
+            filename.mv('./public/images/' + filename.name, function(err) {
                 if (err) {
                     return res.status(500).send(err);
                 } else {
+                    console.log('file uploaded');
+
                     const newVehicle = new Vehicle({
                         title: req.body.title,
                         model: req.body.model,
@@ -217,7 +219,7 @@ Router.get('/delete-ad/:ad', (req, res) => {
     Vehicle.findOneAndDelete({
         _id: req.params.ad
     }).then(vehicle => {
-        fs.unlink(path.join(__dirname + '/public/images/' + vehicle.image), function(err) {
+        fs.unlink(path.join('./public/images/' + vehicle.image), function(err) {
             if (err) {
                 console.error(err);
             }
