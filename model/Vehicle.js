@@ -50,6 +50,10 @@ const Vehiclechema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'conditions'
     },
+    mileage: {
+        type: String,
+        required: true,
+    },
     isApprouved: {
         type: Boolean,
         default: false

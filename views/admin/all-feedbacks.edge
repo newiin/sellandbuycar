@@ -1,0 +1,68 @@
+@layout('layout/adminLayout')
+
+@yield('content')
+  	
+	
+<!-- myads-page -->
+<section id="main" class="clearfix myads-page">
+    <div class="container">
+
+       
+
+        <div class="ad-profile section">	
+            <div class="user-profile">
+         
+                <div class="user">
+                    <h2>Hello, <a href="#">{{user.name}}</a></h2>
+                   
+                </div>
+
+                <div class="favorites-user">
+                    <div class="my-ads">
+                        <a href="#">{{feedbackCount}}<small>All Feedbacks</small></a>
+                    </div>
+                   
+                </div>								
+            </div><!-- user-profile -->
+                    
+            @include('partials/adminNav')
+    
+    </div><!-- ad-profile -->					
+        
+        <div class="ads-info">
+            <div class="row">
+                
+                <div class="col-sm-12">
+                    <div class="my-ads section">
+                        <h2>All Feedbacks</h2>
+                        <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Message</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                @each(feedback in feedbacks)
+                                    <tr>
+                                        <th scope="row">{{feedback._id}}</th>
+                                        <td>{{feedback.name}}</td>
+                                        <td>{{feedback.email}}</td>
+                                        <td>{{feedback.subject}}</td>
+                                        <td>{{feedback.message}}</td>
+                                      </tr>
+                                @endeach
+                                  
+                                </tbody>
+                              </table>
+                    
+                     </div>
+                </div>
+                
+            </div>
+        </div>
+@endyield	
+	

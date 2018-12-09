@@ -15,6 +15,7 @@ const Make = require('../model/Make');
 const Model = require('../model/Model');
 const City = require('../model/City');
 const User = require('../model/User');
+const Feedback = require('../model/Feedback');
 const client = algoliasearch('T0Q2S0R1MH', '8d1b67e13d4006724e072d0f9d0c13c3');
 const index = client.initIndex('Vehiclechema');
 
@@ -59,6 +60,43 @@ Router.get('/', (req, res) => {
         })
 
 });
+//contact page
+Router.get('/contact', (req, res) => {
+    res.render('contact');
+})
+
+Router.post('/contact', (req, res) => {
+        req.check('name', 'Invalid Name field').notEmpty().trim().escape();
+        req.check('subject', 'Invalid subject field').notEmpty().trim().escape();
+        req.check('message', 'Invalid message field').notEmpty().trim().escape();
+        req.check('email', 'Invalid email/Email required').isEmail().trim().notEmpty().normalizeEmail();
+        let errors = req.validationErrors();
+        if (errors) {
+            res.render('contact', {
+                errors: errors
+            });
+        } else {
+            const newFeedback = new Feedback({
+                'name': req.body.name,
+                'email': req.body.email,
+                'subject': req.body.subject,
+                'message': req.body.message
+            })
+            newFeedback.save().then((newFeedbackSvaed) => {
+
+                req.flash('successMessage', 'Your message has been sent');
+                res.redirect("back")
+            }).catch((err) => {
+                console.log(err);
+
+            });
+        }
+
+    })
+    //About us page
+Router.get('/about', (req, res) => {
+    res.render('about');
+})
 Router.get('/all-ads', (req, res) => {
         const optionsP = {
             page: req.query.page,
@@ -198,9 +236,9 @@ Router.post('/register', (req, res) => {
                         let email = {
                             to: user.email,
                             from: 'info@sellandbuy.com',
-                            subject: 'Thanks you to register',
+                            subject: 'Registration to buyandsellcar',
 
-                            html: '<b>Awesome sauce</b>'
+                            html: `<b>Thanks you ${user.name}  to register</b>`
                         };
 
                         mailer.sendMail(email, function(err, res) {
@@ -265,10 +303,10 @@ Router.post('/reset', (req, res) => {
                             let email = {
                                 to: req.body.email,
                                 from: 'info@sellandbuy.com',
-                                subject: 'Thanks you to register',
+                                subject: 'Password request',
                                 html: `
                                 <p>You requested a password reset</p>
-                                <p>please Click <a href="http://localhost:1000/reset/${token}">here</a> a password reset</p>
+                                <p>please Click <a href="https://sellandbuycar.herokuapp.com/reset/${token}">here</a> a password reset</p>
                                 `
                             };
 
@@ -360,6 +398,8 @@ Router.post('/reset/:token', (req, res) => {
 
                     } else {
                         user.password = hash;
+                        user.userToken = undefined;
+                        expireToken = undefined;
                         user.save().then((result) => {
                             res.redirect('/login')
                         }).catch((err) => {
@@ -472,10 +512,10 @@ Router.get('/search', (req, res, next) => {
                 console.log(content.hits);
 
                 res.send(content.hits);
-                // res.render('searchResult', {
-                //     articles: content.hits
+                res.render('search', {
+                    vehicles: content.hits
 
-                // })
+                })
 
             }
         );

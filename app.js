@@ -13,11 +13,9 @@ const overrride = require('method-override');
 const upload = require('express-fileupload');
 const fs = require('fs-extra');
 const moment = require('moment');
+const csrfProtection = csrf();
 const app = express();
-
-
 //Custom modules
-//const config = require('./config/config');
 const { isLogin, isAdmin } = require('./helper/isAuthenticated')
 const LocalStrategy = require('./config/passport-local');
 const mainRoute = require('./routes/main');
@@ -25,7 +23,10 @@ const userRoute = require('./routes/user');
 const adminRoute = require('./routes/admin');
 const City = require('./model/City');
 
-
+/**
+ * PORT
+ */
+const config = require('./config/config');
 /**
  * DATABASE
  */
@@ -59,7 +60,6 @@ app.use(expressValidator());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(upload());
-
 app.use(overrride('_method'));
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
@@ -67,6 +67,7 @@ app.use((req, res, next) => {
     res.locals.successMessage = req.flash('successMessage') || null;
     res.locals.errorMessage = req.flash('errorMessage') || null;
     res.locals.error = req.flash('error');
+
     next();
 })
 
@@ -87,11 +88,11 @@ app.use('/admin', isAdmin, adminRoute);
 /**
  * SERVER
  */
-const port = process.env.PORT || 8000;
-app.listen(port, err => {
+
+app.listen(config.port, err => {
     if (err) {
         console.log('we can not conneted to the server');
     } else {
-        console.log(`connected to the server s`)
+        console.log(`connected to the server port ${config.port}`)
     }
 })

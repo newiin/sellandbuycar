@@ -49,15 +49,15 @@
 		<div class="car-info">
 			<ul>
 			<li><i class="fa fa-calendar" aria-hidden="true"></i>Registration date: {{vehicle.year}}</li>
-				<li><i class="fa fa-tachometer" aria-hidden="true"></i>Mileage: 6,000 mi</li>
-				<li><i class="fa fa-external-link" aria-hidden="true"></i>Condition: Used</li>
+				<li><i class="fa fa-tachometer" aria-hidden="true"></i>Mileage: {{vehicle.mileage}}  Km</li>
+				<li><i class="fa fa-external-link" aria-hidden="true"></i>Condition: {{vehicle.condition.condition}}</li>
 			</ul>
 		</div>
 		<div class="car-info">
 			<ul>
-				<li><i class="fa fa-eyedropper" aria-hidden="true"></i>Exterior Color: Silver</li>
-				<li><i class="fa fa-bitbucket" aria-hidden="true"></i>Interior Color: Brown (Leather)</li>
-				<li><i class="fa fa-database" aria-hidden="true"></i>Drivetrain: front-engine, front- or 4-wheel-drive</li>
+				<li><i class="fa fa-eyedropper" aria-hidden="true"></i>Exterior Color: {{vehicle.color}}</li>
+			<li><i class="fa fa-bitbucket" aria-hidden="true"></i>Vehicle Speed: {{{{vehicle.speed}}}}</li>
+				<li><i class="fa fa-database" aria-hidden="true"></i>Transmission:{{vehicle.transmision.transmission}}</li>
 			</ul>
 		</div>
 		<div class="ad-meta">

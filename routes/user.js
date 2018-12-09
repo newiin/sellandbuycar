@@ -58,6 +58,7 @@ Router.post('/post-ad', (req, res) => {
     req.check('speed', 'Invalid speed format').trim().notEmpty();
     req.check('price', 'Invalid price format').trim().notEmpty();
     req.check('fuel', 'Invalid Fuel format').trim().notEmpty();
+    req.check('mileage', 'Invalid Fuel format').trim().notEmpty();
     let errors = req.validationErrors();
 
     if (errors) {
@@ -89,6 +90,7 @@ Router.post('/post-ad', (req, res) => {
                         speed: req.body.speed,
                         price: req.body.price,
                         fuel: req.body.fuel,
+                        m: req.body.fuel,
                         condition: req.body.condition,
                         user: req.user._id,
                         image: file

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const Router = express.Router();
 const path = require('path')
 const bcrypt = require('bcrypt');
@@ -23,6 +24,7 @@ const Make = require('../model/Make');
 const Model = require('../model/Model');
 const Condition = require('../model/Condition');
 const Transmission = require('../model/Transmission');
+const Feedback = require('../model/Feedback');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -111,9 +113,15 @@ Router.post('/create-city', (req, res) => {
 
 Router.get('/all-cities', (req, res) => {
     City.find({}).then((cities) => {
-        res.render('admin/all-cities', {
-            cities: cities
+        City.countDocuments({}).then((cityCount) => {
+            res.render('admin/all-cities', {
+                cities: cities,
+                cityCount: cityCount
+            });
+        }).catch((err) => {
+
         });
+
     }).catch((err) => {
         console.log(err);
 
@@ -213,9 +221,16 @@ Router.post('/create-make', (req, res) => {
 // All Makes
 Router.get('/all-makes', (req, res) => {
     Make.find({}).then((makes) => {
-        res.render('admin/all-makes', {
-            makes: makes
+        Make.countDocuments({}).then((makeCount) => {
+            res.render('admin/all-makes', {
+                makes: makes,
+                makeCount: makeCount
+            });
+        }).catch((err) => {
+            console.log(err);
+
         });
+
     }).catch((err) => {
         console.log(err);
 
@@ -323,10 +338,13 @@ Router.post('/create-model', (req, res) => {
 // All Models
 Router.get('/all-models', (req, res) => {
     Model.find({}).populate('make').then((models) => {
-
-
-        res.render('admin/all-models', {
-            models: models
+        Model.countDocuments({}).then((modelCount) => {
+            res.render('admin/all-models', {
+                models: models,
+                modelCount: modelCount
+            });
+        }).catch((err) => {
+            console.log(err);
         });
     }).catch((err) => {
         console.log(err);
@@ -381,17 +399,32 @@ Router.put('/model/:model/edit', (req, res) => {
 //Delete make
 Router.get('/model/:model/delete', (req, res) => {
 
-    Model.findOneAndDelete({
-        _id: req.params.model
-    }).then(model => {
-        req.flash('successMessage', 'model has been deleted');
+        Model.findOneAndDelete({
+            _id: req.params.model
+        }).then(model => {
+            req.flash('successMessage', 'model has been deleted');
 
-        res.redirect('/admin/my')
+            res.redirect('/admin/my')
+        })
+
     })
+    //All Feedbacks
+Router.get('/feedback', (req, res) => {
+        Feedback.find({}).then((feedbacks) => {
+            Feedback.countDocuments({}).then((feedbackCount) => {
+                res.render('admin/all-feedbacks', {
+                    feedbacks: feedbacks,
+                    feedbackCount: feedbackCount
+                })
+            }).catch((err) => {
+                console.log(err);
 
-})
-
-// Condition
+            });
+        }).catch((err) => {
+            console.log(err)
+        });
+    })
+    // Condition
 Router.get('/condition', (req, res) => {
     const newCondition = new Condition({
         'condition': 'new',
@@ -473,7 +506,7 @@ Router.get('/ad/:ad/approuved', (req, res) => {
 
             vehicle.isApprouved = true
             vehicle.save().then(vehicleAprouved => {
-                req.flash('successMessage', 'Ad has been deleted');
+                req.flash('successMessage', 'Ad has been approuved');
                 res.redirect('/admin/my')
             }).catch((err) => {
                 console.log(err);
