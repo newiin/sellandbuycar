@@ -46,6 +46,8 @@ Router.get('/', (req, res) => {
         .then((vehicles) => {
             Make.find({}).then((makes) => {
                 Vehicle.countDocuments({}).then((vehicleTotal) => {
+
+
                     res.render('index', {
                         vehicles: vehicles,
                         makes: makes,
