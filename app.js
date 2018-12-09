@@ -38,7 +38,8 @@ const DB = require('./database/db');
 
 app.use(require('express-edge'));
 app.set('case sensitive routing', true);
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(`${__dirname}/public`));
 app.set('views', `${__dirname}/views`);
 
 
