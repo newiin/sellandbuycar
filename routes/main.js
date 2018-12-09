@@ -29,7 +29,7 @@ Router.get('/', (req, res) => {
         .populate({
             path: 'user',
             populate: {
-                path: 'city'
+                path: 'cityName'
             }
         })
         .populate('condition')
