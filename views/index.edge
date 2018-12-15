@@ -14,7 +14,7 @@
 						@if(vehicleTotal==0)
 				     	<h5>Sorry we don't have any car in our database</h5>
 						@else
-						<h5> {{vehicleTotal}} cars available</h5>
+						<h5> We have {{vehicleTotal}} cars available</h5>
 						@endif
 				</div>
 				
@@ -44,9 +44,9 @@
 		</div><!-- item-image -->
 		<div class="ad-info">
 			<div class="item-cat">
-				<span><a href="#">{{vehicle.model.make.makeName}}</a></span>
+				<span><a href="/{{lowerCase(vehicle.model.make.makeName)}}">{{vehicle.model.make.makeName}}</a></span>
 			</div>								
-			<h4 class="item-title"><a href="#">{{vehicle.title}}</a></h4>
+			<h4 class="item-title"><a href="/details/{{vehicle._id}}">{{vehicle.title}}</a></h4>
 			<h3 class="item-price">{{vehicle.price}}</h3>
 				
 		</div>						

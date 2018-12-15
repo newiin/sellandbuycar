@@ -24,7 +24,9 @@ const index = client.initIndex('Vehiclechema');
 
 // main page
 Router.get('/', (req, res) => {
-    Vehicle.find({})
+    Vehicle.find({
+            isApprouved: true
+        })
         .populate('transmission')
         .populate({
             path: 'user',
@@ -124,9 +126,9 @@ Router.get('/all-ads', (req, res) => {
 
 
         Vehicle.paginate({
-            isApprouved: false
+            isApprouved: true
         }, optionsP).then((result) => {
-            console.log(result.docs);
+
 
             let vehicles = result.docs;
             let current = result.page;
@@ -432,7 +434,70 @@ Router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-// /details page
+//   Search for ads
+
+
+Router.post('/search', (req, res, next) => {
+    if (req.body.search == "") {
+        res.redirect('back');
+    } else {
+        res.redirect('/search/?q=' + req.body.search)
+    }
+
+
+})
+
+// search
+Router.get('/search', (req, res, next) => {
+
+        if (req.query.q) {
+            var q = req.query.q
+                // only query string
+            index.search({
+                    query: req.query.q
+                },
+                function searchDone(err, content) {
+
+                    if (err) throw err;
+                    Vehicle.find({
+                            title: {
+                                $regex: '.*' + q + '.*'
+                            }
+                        })
+                        .populate('transmission')
+                        .populate({
+                            path: 'user',
+                            populate: {
+                                path: 'city'
+                            }
+                        })
+                        .populate('condition')
+                        .populate({
+                            path: 'model',
+                            populate: {
+                                path: 'make'
+                            }
+                        }).sort({
+                            'date': -1
+                        }).then((vehicles) => {
+                            res.render('search', {
+                                vehicles: vehicles
+
+                            })
+                        }).catch((err) => {
+                            console.log(err);
+
+                        });
+
+
+
+                }
+            );
+        }
+
+
+    })
+    // /details page
 Router.get('/details/:ad', function(req, res) {
     Vehicle.find({
             _id: req.params.ad
@@ -456,93 +521,64 @@ Router.get('/details/:ad', function(req, res) {
 });
 
 //Make
-
 Router.get('/:makeSlug', (req, res) => {
-        Make.find({
-            slug: req.params.makeSlug
-        }).then(make => {
-            let makeId
-            make.forEach(make => {
-                makeId = make._id;
-            });
+    Make.find({
+        slug: req.params.makeSlug
+    }).then(make => {
+        let makeId
+        make.forEach(make => {
+            makeId = make._id;
+        });
 
-            Model.find({
-                    make: makeId
-                })
-                .populate('make')
-                .then(makes => {
+        Model.find({
+                make: makeId
+            })
+            .populate('make')
+            .then(makes => {
 
-                    Vehicle.find({
-                            model: makes
+                Vehicle.find({
+                        model: makes
+                    })
+                    .populate('transmission')
+                    .populate({
+                        path: 'user',
+                        populate: {
+                            path: 'city'
+                        }
+                    })
+                    .populate('condition')
+                    .populate({
+                        path: 'model',
+                        populate: {
+                            path: 'make'
+                        }
+                    }).sort({
+                        'date': -1
+                    })
+                    .then(vehicles => {
+
+
+                        res.render('ads-by-make', {
+
+                            vehicles: vehicles,
+                            moment: moment
                         })
-                        .populate('user')
-                        .populate('condition')
-                        .populate('tranmission')
-                        .populate({
-                            path: 'model',
-                            populate: {
-                                path: 'make'
-                            }
-                        })
-                        .then(vehicles => {
 
 
-                            res.render('ads-by-make', {
+                    }).catch(err => {
+                        console.log(err);
 
-                                vehicles: vehicles
-                            })
+                    })
 
+            }).catch(err => {
+                console.log(err);
 
-                        }).catch(err => {
-                            console.log(err);
-
-                        })
-
-                }).catch(err => {
-                    console.log(err);
-
-                })
-        }).catch(err => {
-            console.log(err);
-        })
-
+            })
+    }).catch(err => {
+        console.log(err);
     })
-    //   search
-
-//Article search
-Router.get('/search', (req, res, next) => {
-    if (req.query.q) {
-        console.log(req.query.q);
-
-        // only query string
-        index.search({
-                query: req.query.q
-            },
-            function searchDone(err, content) {
-                if (err) throw err;
-                console.log(content.hits);
-
-                res.send(content.hits);
-                res.render('search', {
-                    vehicles: content.hits
-
-                })
-
-            }
-        );
-    }
-
 
 })
-
-Router.post('/search', (req, res, next) => {
-
-
-    res.redirect('/search/?q=' + req.body.search)
-
-
-})
-
 
 
 
