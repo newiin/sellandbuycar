@@ -10,60 +10,59 @@
         <div class="section-title" >
             <h4>Search Result/h4>
         </div>
-   @each(vehicle in vehicles)
-   <div class="ad-item row">
-  <div class="item-image-box  col-sm-12 col-md-5">
-<div class="item-image">
-<a href="/details/{{vehicle._id}}"><img src="/images/{{vehicle.image}}" alt="Image" class="img-responsive"></a>
-</div><!-- item-image -->
-<div class="ad-info">
-    <div class="item-cat">
-        <span><a href="#">Hyundai</a></span>
-    </div>								
-    <h4 class="item-title"><a href="#">2015 Hyundai Santa Fe</a></h4>
-    <h3 class="item-price">$80,000.00</h3>	
-</div>						
-</div>	
-<div class="cars-ads-box col-sm-12 col-md-7">
-<div class="car-info">
-    <ul>
-    <li><i class="fa fa-calendar" aria-hidden="true"></i>Registration date: {{vehicle.year}}</li>
-        <li><i class="fa fa-tachometer" aria-hidden="true"></i>Mileage: 6,000 mi</li>
-        <li><i class="fa fa-external-link" aria-hidden="true"></i>Condition: Used</li>
-    </ul>
-</div>
-<div class="car-info">
-    <ul>
-        <li><i class="fa fa-eyedropper" aria-hidden="true"></i>Exterior Color: Silver</li>
-        <li><i class="fa fa-bitbucket" aria-hidden="true"></i>Interior Color: Brown (Leather)</li>
-        <li><i class="fa fa-database" aria-hidden="true"></i>Drivetrain: front-engine, front- or 4-wheel-drive</li>
-    </ul>
-</div>
-<div class="ad-meta">
-    <div class="meta-content">
-        <span class="dated"><a href="#">7 Jan, 16  10:10 pm </a></span>
-        <a href="#" class="tag"><i class="fa fa-tags"></i> Used</a>
-    </div>									
-    <!-- item-info-right -->
-    <div class="user-option pull-right">
-        <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Los Angeles, USA"><i class="fa fa-map-marker"></i> </a>
-        <a class="online" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dealer"><i class="fa fa-suitcase"></i> </a>		
-    </div><!-- item-info-right -->
-</div><!-- ad-meta -->																		
-</div>			
-
-</div>
-@endeach	
+        @if(vehicles)
+        @each(vehicle in vehicles)
+        <div class="ad-item row">
+       <div class="item-image-box  col-sm-12 col-md-5">
+     <div class="item-image">
+     <a href="/details/{{vehicle._id}}"><img src="/images/{{vehicle.image}}" alt="Image" class="img-responsive"></a>
+     </div><!-- item-image -->
+     <div class="ad-info">
+         <div class="item-cat">
+             <span><a href="#">Hyundai</a></span>
+         </div>								
+         <h4 class="item-title"><a href="#">2015 Hyundai Santa Fe</a></h4>
+         <h3 class="item-price">$80,000.00</h3>	
+     </div>						
+     </div>	
+     <div class="cars-ads-box col-sm-12 col-md-7">
+     <div class="car-info">
+         <ul>
+         <li><i class="fa fa-calendar" aria-hidden="true"></i>Registration date: {{vehicle.year}}</li>
+             <li><i class="fa fa-tachometer" aria-hidden="true"></i>Mileage: 6,000 mi</li>
+             <li><i class="fa fa-external-link" aria-hidden="true"></i>Condition: Used</li>
+         </ul>
+     </div>
+     <div class="car-info">
+         <ul>
+             <li><i class="fa fa-eyedropper" aria-hidden="true"></i>Exterior Color: Silver</li>
+             <li><i class="fa fa-bitbucket" aria-hidden="true"></i>Interior Color: Brown (Leather)</li>
+             <li><i class="fa fa-database" aria-hidden="true"></i>Drivetrain: front-engine, front- or 4-wheel-drive</li>
+         </ul>
+     </div>
+     <div class="ad-meta">
+         <div class="meta-content">
+             <span class="dated"><a href="#">7 Jan, 16  10:10 pm </a></span>
+             <a href="#" class="tag"><i class="fa fa-tags"></i> Used</a>
+         </div>									
+         <!-- item-info-right -->
+         <div class="user-option pull-right">
+             <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Los Angeles, USA"><i class="fa fa-map-marker"></i> </a>
+             <a class="online" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dealer"><i class="fa fa-suitcase"></i> </a>		
+         </div><!-- item-info-right -->
+     </div><!-- ad-meta -->																		
+     </div>			
+     
+     </div>
+     @endeach	
+        @else
+        <h5>no result find for your search</h5>
+        @endif
+   
 	
 	
 	
-<div class="text-center">
-    <ul class="pagination ">
-        
-        {{{output}}}			
-    </ul>
-    
-</div><!-- pagination  -->			
+			
 
 				
 

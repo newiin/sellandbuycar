@@ -24,17 +24,15 @@ const index = client.initIndex('Vehiclechema');
 
 // main page
 Router.get('/', (req, res) => {
-
     Vehicle.find({})
-
-    .populate({
+        .populate('transmission')
+        .populate({
             path: 'user',
             populate: {
-                path: 'cityName'
+                path: 'city'
             }
         })
         .populate('condition')
-        .populate('tranmission')
         .populate({
             path: 'model',
             populate: {
@@ -47,8 +45,6 @@ Router.get('/', (req, res) => {
         .then((vehicles) => {
             Make.find({}).then((makes) => {
                 Vehicle.countDocuments({}).then((vehicleTotal) => {
-
-
                     res.render('index', {
                         vehicles: vehicles,
                         makes: makes,
@@ -112,16 +108,13 @@ Router.get('/all-ads', (req, res) => {
         const optionsP = {
             page: req.query.page,
             limit: 5,
-            populate: 'user',
-            populate: 'condition',
-            populate: 'tranmission',
             populate: {
                 path: 'model',
                 populate: {
                     path: 'make'
                 }
             },
-            select: '',
+
             sort: {
                 date: -1
             },
@@ -133,6 +126,7 @@ Router.get('/all-ads', (req, res) => {
         Vehicle.paginate({
             isApprouved: false
         }, optionsP).then((result) => {
+            console.log(result.docs);
 
             let vehicles = result.docs;
             let current = result.page;
@@ -142,7 +136,6 @@ Router.get('/all-ads', (req, res) => {
             let prevPage = result.prevPage;
             let nextPage = result.nextPage;
             let output = "";
-
             if (current == 1) {
                 // output+=`<li class="tg-nextpage disabled" ><a href="#" ><i class="fa fa-angle-right"></i></a></li>`
                 output += ` <li><a class="disabled"><i class="fa fa-chevron-left"></i></a></li>`
@@ -179,7 +172,8 @@ Router.get('/all-ads', (req, res) => {
                 hasNextPage: hasNextPage,
                 prevPage: prevPage,
                 nextPage: nextPage,
-                output: output
+                output: output,
+                moment: moment
 
             })
 
@@ -204,6 +198,8 @@ let options = {
 }
 var mailer = nodemailer.createTransport(sgTransport(options));
 Router.post('/register', (req, res) => {
+    console.log(req.body.city);
+
     req.check('name', 'Invalid Name/Email required').notEmpty().trim().escape();
     req.check('phone', 'Invalid Phone Number').matches(/\d/)
     req.check('phone', 'Phone number nust be 10 Digits').isLength({
@@ -241,7 +237,10 @@ Router.post('/register', (req, res) => {
                     'password': req.body.password
 
                 });
+
                 User.createUser(NewUser, (err, user) => {
+                    console.log(user);
+
                     if (user) {
                         res.redirect('/');
                         let email = {
@@ -364,69 +363,70 @@ Router.get('/reset/:token', (req, res) => {
     })
     ///New password
 Router.post('/reset/:token', (req, res) => {
-        req.check('password', 'password must be at least 6 caracteres').isLength({
-            min: 6
-        });
-        req.check('password', "Passwords don't match").custom((value) => {
-            if (value !== req.body.confirm) {
-                return false;
-            } else {
-                return value;
-            }
-        });
-        let errors = req.validationErrors();
-        if (errors) {
-            User.findOne({
-                userToken: req.params.token,
-                expireToken: {
-                    $gt: Date.now()
-                }
-            }).then((userFound) => {
-
-                res.render('new-password', {
-                    userId: userFound._id,
-                    userToken: userFound.userToken,
-                    errors: errors
-                });
-            }).catch((err) => {
-                console.log(err);
-
-            })
-
+    req.check('password', 'password must be at least 6 caracteres').isLength({
+        min: 6
+    });
+    req.check('password', "Passwords don't match").custom((value) => {
+        if (value !== req.body.confirm) {
+            return false;
         } else {
-            User.findOne({
-                userToken: req.params.token,
-                expireToken: {
-                    $gt: Date.now()
-                },
-                _id: req.body.userId
-            }).then((user) => {
-                console.log(user);
+            return value;
+        }
+    });
+    let errors = req.validationErrors();
+    if (errors) {
+        User.findOne({
+            userToken: req.params.token,
+            expireToken: {
+                $gt: Date.now()
+            }
+        }).then((userFound) => {
 
-                bcrypt.hash(req.body.password, 10, function(err, hash) {
-                    if (err) {
+            res.render('new-password', {
+                userId: userFound._id,
+                userToken: userFound.userToken,
+                errors: errors
+            });
+        }).catch((err) => {
+            console.log(err);
+
+        })
+
+    } else {
+        User.findOne({
+            userToken: req.params.token,
+            expireToken: {
+                $gt: Date.now()
+            },
+            _id: req.body.userId
+        }).then((user) => {
+            console.log(user);
+
+            bcrypt.hash(req.body.password, 10, function(err, hash) {
+                if (err) {
+                    console.log(err);
+
+                } else {
+                    user.password = hash;
+                    user.userToken = undefined;
+                    expireToken = undefined;
+                    user.save().then((result) => {
+                        res.redirect('/login')
+                    }).catch((err) => {
                         console.log(err);
 
-                    } else {
-                        user.password = hash;
-                        user.userToken = undefined;
-                        expireToken = undefined;
-                        user.save().then((result) => {
-                            res.redirect('/login')
-                        }).catch((err) => {
-                            console.log(err);
-
-                        });
-                    }
-                });
-
-            }).catch((err) => {
-                console.log(err);
-
+                    });
+                }
             });
-        }
-    })
-    ///Route logout
+
+        }).catch((err) => {
+            console.log(err);
+
+        });
+    }
+})
+
+///Route logout
 Router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');

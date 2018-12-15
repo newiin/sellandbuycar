@@ -6,12 +6,11 @@ const Schema = mongoose.Schema;
 const MakeSchema = new Schema({
 
     makeName: {
-        type: String,
-        required: true,
+        type: String
+
     },
     slug: {
         type: String,
-        required: true,
         unique: true
     }
 

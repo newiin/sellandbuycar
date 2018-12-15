@@ -442,7 +442,7 @@ Router.get('/condition', (req, res) => {
 // / Transmission
 Router.get('/transmission', (req, res) => {
     const newTransmission = new Transmission({
-        'transmission': 'Manual',
+        'transmission': 'Automatique',
     });
     newTransmission.save().then((newtransmissionSaved) => {
         console.log(newtransmissionSaved);
@@ -458,7 +458,7 @@ Router.get('/transmission', (req, res) => {
 // All users
 Router.get('/all-users', (req, res) => {
     User.find({
-        rule: 'user'
+
     }).then((users) => {
         User.countDocuments({
             rule: 'user'
@@ -516,8 +516,25 @@ Router.get('/ad/:ad/approuved', (req, res) => {
         })
 
 });
+//set ruleto user
+Router.get('/rule/:user/set-rule', (req, res) => {
+        User.findById({
+            _id: req.params.user
+        }).then((user) => {
+            user.rule = 'admin';
+            user.save().then((userRule) => {
+                console.log(userRule);
 
-// delete user 
+                req.flash('successMessage', 'Use rule has been set');
+                res.redirect('/admin/my')
+            }).catch((err) => {
+                console.log(err)
+            });
+        }).catch((err) => {
+
+        });
+    })
+    // delete user 
 Router.get('/user/:user/delete', (req, res) => {
     User.findOneAndRemove({
         _id: req.params.user

@@ -15,6 +15,7 @@ const {
 } = require('express-validator/filter');
 const fs = require('fs-extra');
 const moment = require('moment');
+const AWS = require('aws-sdk');
 const User = require('../model/User');
 const City = require('../model/City');
 const Make = require('../model/Make');
@@ -24,6 +25,13 @@ const Condition = require('../model/Condition');
 const Transmission = require('../model/Transmission');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+//configuring the AWS environment
+AWS.config.update({
+    accessKeyId: "AKIAJJW426S4OC5R4L5A",
+    secretAccessKey: "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"
+});
+const s3 = new AWS.S3();
+
 
 Router.get('/post-ad', (req, res) => {
     Model.find({}).then((models) => {
@@ -72,11 +80,49 @@ Router.post('/post-ad', (req, res) => {
 
         })
     } else {
-
-
         let file = req.files.file.name;
         if (req.files.file) {
             let filename = req.files.file
+                // const s3Params = {
+                //     Bucket: "sellandbuy",
+                //     Key: "images/" + Date.now() + path.basename(filename.name),
+                //     Expires: 60,
+                //     Body: filename.name,
+                // };
+                // s3.upload(s3Params, function(err, data) {
+                //     if (err) {
+                //         console.log("Error", err);
+                //     }
+                //     //success
+                //     if (data) {
+                //         console.log("Uploaded in:", data.Location);
+                //         console.log('file uploaded');
+
+            //         const newVehicle = new Vehicle({
+            //             title: req.body.title,
+            //             model: req.body.model,
+            //             year: req.body.year,
+            //             color: req.body.color,
+            //             transmission: req.body.transmission,
+            //             speed: req.body.speed,
+            //             price: req.body.price,
+            //             fuel: req.body.fuel,
+            //             mileage: req.body.mileage,
+            //             condition: req.body.condition,
+            //             user: req.user._id,
+            //             image: Date.now() + path.basename(file)
+            //         })
+            //         newVehicle.save().then(vehicleSaved => {
+            //             req.flash('successMessage', 'Ad has been created');
+            //             res.redirect("back")
+
+            //         }).catch((err) => {
+            //             console.log(err);
+
+            //         })
+            //     }
+            // });
+
             filename.mv('./public/images/' + filename.name, function(err) {
                 if (err) {
                     return res.status(500).send(err);
@@ -109,6 +155,7 @@ Router.post('/post-ad', (req, res) => {
 
 
             });
+
         }
     }
 
@@ -125,7 +172,9 @@ Router.get('/my-ads', (req, res) => {
             path: 'make'
         }
     }).then((vehicles) => {
-        Vehicle.countDocuments({ user: req.user._id }).then((userVehicleTotal) => {
+        Vehicle.countDocuments({
+            user: req.user._id
+        }).then((userVehicleTotal) => {
             res.render('user/my-ads', {
                 vehicles: vehicles,
                 moment: moment,
@@ -231,6 +280,8 @@ Router.get('/delete-ad/:ad', (req, res) => {
 });
 //user profile
 Router.get('/profile', (req, res) => {
-    res.render('user/profile', { moment: moment })
+    res.render('user/profile', {
+        moment: moment
+    })
 });
 module.exports = Router;

@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
 
-const Schema=mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const ConditionSchema=new Schema({
-   
-    condition:{
-        type:String,
-        required:true,
+const ConditionSchema = new Schema({
+
+    condition: {
+        type: String
+
     }
-    
-  
+
+
 });
 
 ConditionSchema.plugin(timestamps);

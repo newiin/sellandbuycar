@@ -14,6 +14,14 @@ const Vehiclechema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    condition: {
+        type: Schema.Types.ObjectId,
+        ref: 'conditions'
+    },
+    transmission: {
+        type: Schema.Types.ObjectId,
+        ref: 'transmissions'
+    },
     title: {
         type: String,
         required: true,
@@ -30,10 +38,7 @@ const Vehiclechema = new Schema({
         type: String,
         required: true,
     },
-    transmission: {
-        type: Schema.Types.ObjectId,
-        ref: 'transmissions'
-    },
+
     speed: {
         type: String,
         required: true,
@@ -46,10 +51,7 @@ const Vehiclechema = new Schema({
         type: String,
         required: true,
     },
-    condition: {
-        type: Schema.Types.ObjectId,
-        ref: 'conditions'
-    },
+
     mileage: {
         type: String,
         required: true,

@@ -11,10 +11,10 @@ module.exports = {
 
     },
     isAdmin: function(req, res, next) {
-
         if (req.isAuthenticated() && req.user.rule == "admin") {
             return next();
         } else {
+            req.logout();
             res.redirect('/login')
         }
 

@@ -54,7 +54,12 @@
                                         <td>{{user.phone}}</td>
                                         
                                         <td><a href="/admin/user/{{user._id}}/delete"><button type="button" class="btn btn-danger">Delete This User</button></a></td>
-                                        <td><a href="/admin/user/{{user._id}}/delete"><button type="button" class="btn btn-info">Set Rule</button></a></td>
+                                        @if(user.rule=='admin')
+                                        <td><a href="#"><button type="button" class="btn btn-info">Admin</button></a></td>
+                                        @else
+                                        <td><a href="/admin/rule/{{user._id}}/set-rule"><button type="button" class="btn btn-warning">Set Rule</button></a></td>
+                                          
+                                        @endif
 
                                       </tr>
                                 @endeach

@@ -10,7 +10,12 @@
 			<div class="category-section">
 				<div class="section-title">
 					<h4>Browse Cars By Makes</h4>
-					<h5>We currently have {{vehicleTotal}} cars available</h5>
+					
+						@if(vehicleTotal==0)
+				     	<h5>Sorry we don't have any car in our database</h5>
+						@else
+						<h5> {{vehicleTotal}} cars available</h5>
+						@endif
 				</div>
 				
 			</div><!-- category section -->
@@ -43,7 +48,7 @@
 			</div>								
 			<h4 class="item-title"><a href="#">{{vehicle.title}}</a></h4>
 			<h3 class="item-price">{{vehicle.price}}</h3>
-			<h3 class="item-price">{{vehicle.image}}</h3>		
+				
 		</div>						
 	</div>	
 	<div class="cars-ads-box col-sm-12 col-md-7">
@@ -58,16 +63,16 @@
 			<ul>
 				<li><i class="fa fa-eyedropper" aria-hidden="true"></i>Exterior Color: {{vehicle.color}}</li>
 			<li><i class="fa fa-bitbucket" aria-hidden="true"></i>Vehicle Speed: {{vehicle.speed}} Km/h</li>
-				<li><i class="fa fa-database" aria-hidden="true"></i>Transmission:{{vehicle.transmission.transmission}}</li>
+				<li><i class="fa fa-database" aria-hidden="true"></i>Transmission: {{vehicle.transmission.transmission}}</li>
 			</ul>
 		</div>
 		<div class="ad-meta">
 			<div class="meta-content">
 				<span class="dated"><a href="#"><i class="fa fa-clock-o"></i> {{moment(vehicle.createdAt, "YYYYMMDD").fromNow()}}</a></span>
-			    <a href="#" class="tag"><i class="fa fa-map-marker"></i> {{vehicle.user.cityName.cityName}}</a>
+			    <a href="#" class="tag"><i class="fa fa-map-marker"></i> {{vehicle.user.city.cityName}}</a>
 			</div>									
 			
-		</div><!-- ad-meta -->																		
+		</div>																	
 	</div>			
 
 </div>
