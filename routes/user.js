@@ -71,12 +71,23 @@ Router.post('/post-ad', (req, res) => {
 
     if (errors) {
         Model.find({}).then((models) => {
-            res.render('user/post-ad', {
-                errors: errors,
-                models: models
+            Condition.find({}).then((conditions) => {
+                Transmission.find({}).then((transmissions) => {
+                    res.render('user/post-ad', {
+                        models: models,
+                        conditions: conditions,
+                        transmissions: transmissions,
+                        errors: errors
+                    });
+                }).catch((err) => {
+                    console.log(err);
+
+                })
+
+            }).catch((err) => {
+                console.log(err);
+
             })
-        }).then((err) => {
-            console.log(err);
 
         })
     } else {
@@ -145,7 +156,7 @@ Router.post('/post-ad', (req, res) => {
                     })
                     newVehicle.save().then(vehicleSaved => {
                         req.flash('successMessage', 'Ad has been created');
-                        res.redirect("back")
+                        res.redirect("/user/my-ads")
 
                     }).catch((err) => {
                         console.log(err);

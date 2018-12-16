@@ -461,7 +461,7 @@ Router.get('/all-users', (req, res) => {
 
     }).then((users) => {
         User.countDocuments({
-            rule: 'user'
+
         }).then((userTotal) => {
             res.render('admin/all-users', {
                 users: users,

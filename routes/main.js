@@ -46,7 +46,7 @@ Router.get('/', (req, res) => {
         .limit(5)
         .then((vehicles) => {
             Make.find({}).then((makes) => {
-                Vehicle.countDocuments({}).then((vehicleTotal) => {
+                Vehicle.countDocuments({ isApprouved: true }).then((vehicleTotal) => {
                     res.render('index', {
                         vehicles: vehicles,
                         makes: makes,
@@ -322,11 +322,12 @@ Router.post('/reset', (req, res) => {
                                 `
                             };
 
-                            mailer.sendMail(email, function(err, res) {
+                            mailer.sendMail(email, function(err, response) {
                                 if (err) {
                                     console.log(err)
                                 }
-                                res.redirect('/login')
+                                req.flash('errorMessage', 'An Email has been sent to you');
+                                res.redirect('back');
                             });
                         }).catch((err) => {
                             console.log(err);

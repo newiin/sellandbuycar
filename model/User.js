@@ -7,17 +7,17 @@ const UserSchema = new Schema({
 
     name: {
         type: String,
-        required: true,
+
     },
     email: {
         type: String,
-        required: true,
+
         unique: true,
 
     },
     password: {
         type: String,
-        required: true,
+
         minlength: 6
     },
     userToken: {
@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     },
     rule: {
         type: String,
-        required: true,
+
         default: "user"
     },
     city: {
@@ -42,7 +42,6 @@ const UserSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('users', UserSchema);
 UserSchema.plugin(timestamps);
 const User = module.exports = mongoose.model('users', UserSchema);
 module.exports.createUser = function(newUser, callback) {

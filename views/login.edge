@@ -18,7 +18,15 @@
 										  </div>
                                                @endeach
                                          @endif
-           
+           	                 @if(errorMessage.length>0)
+
+								<div class="alert alert-danger">
+										@each(msg in errorMessage)
+										  {{msg}}
+										@endeach
+								</div>
+							
+								@endif
                         <form action="/login" method="POST">
                             <div class="form-group">
                                 <input type="email" name="email" class="form-control" placeholder="Email" >

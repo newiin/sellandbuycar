@@ -68,8 +68,7 @@ Vehiclechema.plugin(mongooseAlgolia, {
     appId: 'T0Q2S0R1MH',
     apiKey: '8d1b67e13d4006724e072d0f9d0c13c3',
     indexName: 'Vehiclechema', //The name of the index in Algolia, you can also pass in a function
-    selector: 'title user.name make.makeName model.name condition.condition',
-    populate: 'user',
+    selector: 'title',
     populate: 'condition',
     populate: 'tranmission',
     populate: {
@@ -99,6 +98,6 @@ const Model = module.exports = mongoose.model('vehicles', Vehiclechema);
 
 Model.SyncToAlgolia();
 Model.SetAlgoliaSettings({
-    searchableAttributes: ['title', 'user.name', 'make.makeName', 'model.name']
+    searchableAttributes: ['title', 'make.makeName', 'model.name']
 });
 module.exports = Model;
